@@ -30,8 +30,8 @@ describe Board do
 		context "when board is already modified but not full" do
 			it "returns is not full" do
 				new_cells = Array.new(43, " ")
-				new_cells[3..5] = "\u26d4"
-				new_cells[6..8] = "\u26dD"
+        new_cells[3..5] = "\u26d4"
+        new_cells[6..8] = "\u26dD"
 
 				board.instance_variable_set(:@cells, new_cells )
 				expect(board).to_not be_full
@@ -48,4 +48,46 @@ describe Board do
 			end
 		end
 	end
+
+
+	describe "#valid_move?" do
+		context "checks that any of row positions is free" do
+
+			context "with empty row" do
+				it "returns true" do
+					valid_move = game.valid_move?(1)
+
+					expect(valid_move).to be_valid_move
+				end
+			end
+
+			context "with non-empty row" do
+
+				before do
+					new_cells = Array.new(" ", 43)
+					[1,8,15,22,29].each do |value|
+						new_cells[value] = "\u26d4"
+					end
+					board.instance_variable_set(:@cells, new_cells )
+				end
+
+				it "returns true" do
+					valid_move = game.valid_move?(1)
+					expect(valid_move).to be_valid_move
+				end
+			end
+
+			context "with full row" do
+				
+				it "returns false" do
+					invalid_move = game.valid_move?(1)
+
+					expect(invalid_move).to_not be_valid
+				end
+			end
+		end
+
+	end
+
+	
 end

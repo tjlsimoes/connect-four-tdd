@@ -462,3 +462,21 @@
 
 # Let's try and organize things in reference to:
 # https://github.com/rlmoser99/ruby_TicTacToe
+
+######## How to manage user input?
+# User will input a number 1-7
+# Somehow the computer will have to:
+# - Look at the corresponding column.
+# - Understand if there is any empty
+#     space on such a column
+# - Place user input on the lowest available
+#     space.
+
+# 1st_row_idx = [1,8,15,22,29,36]
+# 2nd_row_idx = [2, 9, 16, 23, 30, 37]
+# 3rd_row_idx = [3, 10, 17, 24, 31, 38]
+# 4th_row_idx = [4, 11, 18, 25, 32, 39]
+# 5th_row_idx = [5, 12, 19, 26, 33, 40]
+# 6th_row_idx = [6, 13, 20, 27, 34, 41]
+# 7th_row_idx = [7, 14, 21, 28, 35, 42]
+

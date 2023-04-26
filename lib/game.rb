@@ -20,6 +20,12 @@ class Game
     player_turns
   end
 
+  def turn(player)
+    cell = turn_input(player)
+    board.update_board(cell, player.symbol)
+    board.show
+  end
+
   private
 
   def player_turns
@@ -30,6 +36,15 @@ class Game
 
       @current_player = switch_current_player
     end
+  end
+
+  def turn_input(player)
+    puts display_player_turn(player.name, player.symbol)
+    number = gets.chomp.to_i
+    return number if board.valid_move?(number)
+
+    puts display_input_warning
+    turn_input(player)
   end
 
   def switch_current_player

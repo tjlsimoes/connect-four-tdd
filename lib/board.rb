@@ -34,4 +34,16 @@ class Board
 
     board_cells.all? { |value| value != " " }
   end
+
+  def valid_move?(number)
+    
+  end
+
+  def game_over?
+    
+  end
+
+  def update_board
+
+  end
 end
