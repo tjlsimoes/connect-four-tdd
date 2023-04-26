@@ -459,3 +459,6 @@
 # 	HEREDOC
 # end
 # show
+
+# Let's try and organize things in reference to:
+# https://github.com/rlmoser99/ruby_TicTacToe
