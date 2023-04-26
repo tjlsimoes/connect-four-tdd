@@ -28,4 +28,10 @@ class Board
       -----------------------------
     HEREDOC
   end
+
+  def full?
+    board_cells = @cells[1..42]
+
+    board_cells.all? { |value| value != " " }
+  end
 end
