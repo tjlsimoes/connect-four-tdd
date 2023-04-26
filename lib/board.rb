@@ -36,14 +36,50 @@ class Board
   end
 
   def valid_move?(number)
-    
+    first_row_idx = [1,8,15,22,29,36]
+    second_row_idx = [2, 9, 16, 23, 30, 37]
+    third_row_idx = [3, 10, 17, 24, 31, 38]
+    fourth_row_idx = [4, 11, 18, 25, 32, 39]
+    fifth_row_idx = [5, 12, 19, 26, 33, 40]
+    sixth_row_idx = [6, 13, 20, 27, 34, 41]
+    seventh_row_idx = [7, 14, 21, 28, 35, 42]
+
+    case number
+    when 1
+      first_row_idx.any? { |value| cells[value] == " "}
+    when 2
+      second_row_idx.any? { |value| cells[value] == " "}
+    when 3
+      third_row_idx.any? { |value| cells[value] == " "}
+    when 4
+      fourth_row_idx.any? { |value| cells[value] == " "}
+    when 5
+      fifth_row_idx.any? { |value| cells[value] == " "}
+    when 6
+      sixth_row_idx.any? { |value| cells[value] == " "}
+    when 7
+      seventh_row_idx.any? { |value| cells[value] == " "}
+    end
+
+  end
+
+  def loop_idx(array, symbol)
+    i = 0
+    while i < array.length do
+
+      if board[array[i]] == " "
+        update_board(number, symbol)
+      end
+
+      i += 1
+    end
   end
 
   def game_over?
     
   end
 
-  def update_board
+  def update_board(number, symbol)
 
   end
 end

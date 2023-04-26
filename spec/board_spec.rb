@@ -55,16 +55,15 @@ describe Board do
 
 			context "with empty row" do
 				it "returns true" do
-					valid_move = game.valid_move?(1)
-
-					expect(valid_move).to be_valid_move
+					valid_move = board.valid_move?(1)
+					expect(valid_move).to eq true
 				end
 			end
 
 			context "with non-empty row" do
 
 				before do
-					new_cells = Array.new(" ", 43)
+					new_cells = Array.new(43, " ")
 					[1,8,15,22,29].each do |value|
 						new_cells[value] = "\u26d4"
 					end
@@ -72,22 +71,29 @@ describe Board do
 				end
 
 				it "returns true" do
-					valid_move = game.valid_move?(1)
-					expect(valid_move).to be_valid_move
+					# valid_move = board.valid_move?(1)
+					expect(board).to be_valid_move(1)
 				end
 			end
 
 			context "with full row" do
-				
-				it "returns false" do
-					invalid_move = game.valid_move?(1)
 
-					expect(invalid_move).to_not be_valid
+				before do
+					new_cells = Array.new(43, " ")
+					[1,8,15,22,29,36].each do |value|
+						new_cells[value] = "\u26d4"
+					end
+					board.instance_variable_set(:@cells, new_cells )
+				end
+
+				it "returns false" do
+					# invalid_move = board.valid_move?(1)
+					expect(board).to_not be_valid_move(1)
 				end
 			end
 		end
 
 	end
 
-	
+
 end
