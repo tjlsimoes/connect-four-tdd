@@ -329,36 +329,133 @@
 # end
 # show
 
-############# Print empty board with columns' indications
-def show
-	cells = []
-	i = 0
-	while i < 43 do
-		if i < 10
-			cells.push(" ") 
-		else
-			cells.push("  ")
-		end
-		i += 1
-	end
+# ############# Print empty board with columns' indications
+# def show
+# 	cells = []
+# 	i = 0
+# 	while i < 43 do
+# 		if i < 10
+# 			cells.push(" ") 
+# 		else
+# 			cells.push("  ")
+# 		end
+# 		i += 1
+# 	end
 
-	puts <<-HEREDOC
-		------------------------------------
-		| #{cells[1]}  | #{cells[2]}  | #{cells[3]}  | #{cells[4]}  | #{cells[5]}  | #{cells[6]}  | #{cells[7]}  |
-		------------------------------------
-		| #{cells[8]}  | #{cells[9]}  | #{cells[10]} | #{cells[11]} | #{cells[12]} | #{cells[13]} | #{cells[14]} |
-		------------------------------------
-		| #{cells[15]} | #{cells[16]} | #{cells[17]} | #{cells[18]} | #{cells[19]} | #{cells[20]} | #{cells[21]} |
-		------------------------------------
-		| #{cells[22]} | #{cells[23]} | #{cells[24]} | #{cells[25]} | #{cells[26]} | #{cells[27]} | #{cells[28]} |
-		------------------------------------
-		| #{cells[29]} | #{cells[30]} | #{cells[31]} | #{cells[32]} | #{cells[33]} | #{cells[34]} | #{cells[35]} |
-		------------------------------------
-		| #{cells[36]} | #{cells[37]} | #{cells[38]} | #{cells[39]} | #{cells[40]} | #{cells[41]} | #{cells[42]} |
-		------------------------------------
-		------------------------------------
-		| 1  | 2  | 3  | 4  | 5  | 6  | 7  |
-		------------------------------------
-	HEREDOC
-end
-show
+# 	puts <<-HEREDOC
+# 		------------------------------------
+# 		| #{cells[1]}  | #{cells[2]}  | #{cells[3]}  | #{cells[4]}  | #{cells[5]}  | #{cells[6]}  | #{cells[7]}  |
+# 		------------------------------------
+# 		| #{cells[8]}  | #{cells[9]}  | #{cells[10]} | #{cells[11]} | #{cells[12]} | #{cells[13]} | #{cells[14]} |
+# 		------------------------------------
+# 		| #{cells[15]} | #{cells[16]} | #{cells[17]} | #{cells[18]} | #{cells[19]} | #{cells[20]} | #{cells[21]} |
+# 		------------------------------------
+# 		| #{cells[22]} | #{cells[23]} | #{cells[24]} | #{cells[25]} | #{cells[26]} | #{cells[27]} | #{cells[28]} |
+# 		------------------------------------
+# 		| #{cells[29]} | #{cells[30]} | #{cells[31]} | #{cells[32]} | #{cells[33]} | #{cells[34]} | #{cells[35]} |
+# 		------------------------------------
+# 		| #{cells[36]} | #{cells[37]} | #{cells[38]} | #{cells[39]} | #{cells[40]} | #{cells[41]} | #{cells[42]} |
+# 		------------------------------------
+# 		------------------------------------
+# 		| 1  | 2  | 3  | 4  | 5  | 6  | 7  |
+# 		------------------------------------
+# 	HEREDOC
+# end
+# show
+
+
+# class Game
+
+# 	attr_reader :board, :player1, :player2, :current_player
+
+# 	def initialize(player1, player2)
+# 		@board = initial_board
+# 		@player1 = HumanPlayer.new(player1, "\u26d4")
+# 		@player2 = HumanPlayer.new(player2, "\u26dD")
+
+# 		@current_player = @player1
+# 	end
+
+# 	def initial_board
+# 		cells = []
+# 		i = 0
+# 		while i < 43 do
+# 			if i < 10
+# 				cells.push(" ") 
+# 			else
+# 				cells.push("  ")
+# 			end
+# 			i += 1
+# 		end
+# 		cells
+# 	end
+
+# 	def show
+# 		puts <<-HEREDOC
+# 			------------------------------------
+# 			| #{board[1]}  | #{board[2]}  | #{board[3]}  | #{board[4]}  | #{board[5]}  | #{board[6]}  | #{board[7]}  |
+# 			------------------------------------
+# 			| #{board[8]}  | #{board[9]}  | #{board[10]} | #{board[11]} | #{board[12]} | #{board[13]} | #{board[14]} |
+# 			------------------------------------
+# 			| #{board[15]} | #{board[16]} | #{board[17]} | #{board[18]} | #{board[19]} | #{board[20]} | #{board[21]} |
+# 			------------------------------------
+# 			| #{board[22]} | #{board[23]} | #{board[24]} | #{board[25]} | #{board[26]} | #{board[27]} | #{board[28]} |
+# 			------------------------------------
+# 			| #{board[29]} | #{board[30]} | #{board[31]} | #{board[32]} | #{board[33]} | #{board[34]} | #{board[35]} |
+# 			------------------------------------
+# 			| #{board[36]} | #{board[37]} | #{board[38]} | #{board[39]} | #{board[40]} | #{board[41]} | #{board[42]} |
+# 			------------------------------------
+# 			------------------------------------
+# 			| 1  | 2  | 3  | 4  | 5  | 6  | 7  |
+# 			------------------------------------
+# 		HEREDOC
+# 	end
+# end
+
+# class HumanPlayer
+# 	attr_reader :name, :symbol
+
+# 	def initialize(name, symbol)
+# 		@name = name
+# 		@symbol = symbol
+# 	end
+# end
+
+# # Game.new.show
+
+############### 25 April #####################
+
+# Previous print solution made a difference
+# between cells with numbers of two digits
+# and cells of one digit. 
+
+# That shall not be necessary!
+# Board will be initially blank and to be
+# filled with one of two markers.
+# Where each of the two markers will only
+# occupy a single digit space.
+
+############# Refactor print method
+# def show
+# 	cells = Array.new(43, " ")
+
+# 	puts <<-HEREDOC
+# 		-----------------------------
+# 		| #{cells[1]} | #{cells[2]} | #{cells[3]} | #{cells[4]} | #{cells[5]} | #{cells[6]} | #{cells[7]} |
+# 		-----------------------------
+# 		| #{cells[8]} | #{cells[9]} | #{cells[10]} | #{cells[11]} | #{cells[12]} | #{cells[13]} | #{cells[14]} |
+# 		-----------------------------
+# 		| #{cells[15]} | #{cells[16]} | #{cells[17]} | #{cells[18]} | #{cells[19]} | #{cells[20]} | #{cells[21]} |
+# 		-----------------------------
+# 		| #{cells[22]} | #{cells[23]} | #{cells[24]} | #{cells[25]} | #{cells[26]} | #{cells[27]} | #{cells[28]} |
+# 		-----------------------------
+# 		| #{cells[29]} | #{cells[30]} | #{cells[31]} | #{cells[32]} | #{cells[33]} | #{cells[34]} | #{cells[35]} |
+# 		-----------------------------
+# 		| #{cells[36]} | #{cells[37]} | #{cells[38]} | #{cells[39]} | #{cells[40]} | #{cells[41]} | #{cells[42]} |
+# 		-----------------------------
+# 		-----------------------------
+# 		| 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+# 		-----------------------------
+# 	HEREDOC
+# end
+# show
