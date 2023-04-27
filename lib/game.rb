@@ -9,7 +9,7 @@ class Game
 
   def initialize
     @board = Board.new
-    @first_player = Player.new("Player 1", "\u26d4")
+    @first_player = Player.new("Player 1", "\u2666")
     @second_player = Player.new("Player 2", "\u26dD")
     @current_player = first_player
   end
@@ -41,7 +41,7 @@ class Game
   def turn_input(player)
     puts display_player_turn(player.name, player.symbol)
     number = gets.chomp.to_i
-    return number if board.valid_move?(number)
+    return number if (1..7).include?(number) && board.valid_move?(number) 
 
     puts display_input_warning
     turn_input(player)
