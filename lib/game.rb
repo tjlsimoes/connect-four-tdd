@@ -21,8 +21,8 @@ class Game
   end
 
   def turn(player)
-    cell = turn_input(player)
-    board.update_board(cell, player.symbol)
+    row = turn_input(player)
+    board.update_board(row, player.symbol)
     board.show
   end
 
