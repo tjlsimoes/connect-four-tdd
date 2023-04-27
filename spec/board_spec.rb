@@ -9,14 +9,35 @@ describe Board do
 	context "when board is initialized" do
 		it "cells instance variable has 43 elements" do
 			cells = board.cells
-			expect( cells.length ).to eq(43)
+			expect(cells.length).to eq(43)
 		end
 
 		it "cells instance variable is made up of \'  \'" do
 			cells = board.cells
-			cells.all? { |value| value == " " }
+			check = cells.all? { |value| value == " " }
+			expect(check).to eq true
 		end
 
+		it "cells instance variable is not made up of 9" do
+			cells = board.cells
+			check = cells.all? { |value| value == 9 }
+			expect(check).to eq false
+		end
+
+		context "when nodes parameter is true" do
+			subject(:board) { described_class.new(true) }
+	
+			it "cells instance variable has 43 elements" do
+				cells = board.cells
+				expect( cells.length ).to eq(43)
+			end
+	
+			it "cells instance variable is made up of nil values" do
+				cells = board.cells
+				check = cells.all? { |value| value == nil }
+				expect(check).to eq true
+			end
+		end
 	end
 
 	describe "#full?" do

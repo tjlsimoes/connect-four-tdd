@@ -82,7 +82,7 @@ class Board
 
       row_idx = row_idxs[i]
 
-      if @cells[row_idx] == " "
+      if @cells[row_idx] == " " || @cells[row_idx] == nil
         @cells[row_idx] = symbol
         break
       end
