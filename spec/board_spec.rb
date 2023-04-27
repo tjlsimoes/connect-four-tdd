@@ -92,8 +92,49 @@ describe Board do
 				end
 			end
 		end
-
 	end
 
+	describe "#update_board" do
+
+		context "when board is initialized" do
+			it "updates last element on 1st row" do
+				board.update_board(1, "\u26d4")
+				cells = board.cells
+				expect(cells[36]).to eq("\u26d4")
+			end
+		end
+
+		context "on row already filled with some symbols" do
+
+			before do
+				new_cells = Array.new(43, " ")
+        new_cells[29] = "\u26d4"
+        new_cells[36] = "\u26dD"
+				board.instance_variable_set(:@cells, new_cells )
+			end
+
+			it "updates first empty row element" do
+				board.update_board(1, "\u26d4")
+				cells = board.cells
+				expect(cells[22]).to eq("\u26d4")
+			end
+		end
+
+		context "on filled up row" do
+			before do
+				new_cells = Array.new(43, " ")
+				[36, 29, 22, 15, 8, 1]. each do |idx|
+					new_cells[idx] = "\u26d4"
+				end
+				board.instance_variable_set(:@cells, new_cells )
+			end
+
+			it "it does nothing" do
+				board.update_board(1, "\u26dD") # update board with different marker
+				cells = board.cells
+				expect(cells[1]).to_not eq("\u26dD")
+			end
+		end
+	end
 
 end

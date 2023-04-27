@@ -35,44 +35,35 @@ class Board
     board_cells.all? { |value| value != " " }
   end
 
-  def valid_move?(number)
-    first_row_idx = [1,8,15,22,29,36]
-    second_row_idx = [2, 9, 16, 23, 30, 37]
-    third_row_idx = [3, 10, 17, 24, 31, 38]
-    fourth_row_idx = [4, 11, 18, 25, 32, 39]
-    fifth_row_idx = [5, 12, 19, 26, 33, 40]
-    sixth_row_idx = [6, 13, 20, 27, 34, 41]
-    seventh_row_idx = [7, 14, 21, 28, 35, 42]
+  def row(number)
+    first_row_idx = [36, 29, 22, 15, 8, 1]
+    second_row_idx = [37, 30, 23, 16, 9, 2]
+    third_row_idx = [38, 31, 24, 17, 10, 3]
+    fourth_row_idx = [39, 32, 25, 18, 11, 4]
+    fifth_row_idx = [40, 33, 26, 19, 12, 5]
+    sixth_row_idx = [41, 34, 27, 20, 13, 6]
+    seventh_row_idx = [42, 35, 28, 21, 14, 7]
 
     case number
     when 1
-      first_row_idx.any? { |value| cells[value] == " "}
+      first_row_idx
     when 2
-      second_row_idx.any? { |value| cells[value] == " "}
+      second_row_idx
     when 3
-      third_row_idx.any? { |value| cells[value] == " "}
+      third_row_idx
     when 4
-      fourth_row_idx.any? { |value| cells[value] == " "}
+      fourth_row_idx
     when 5
-      fifth_row_idx.any? { |value| cells[value] == " "}
+      fifth_row_idx
     when 6
-      sixth_row_idx.any? { |value| cells[value] == " "}
+      sixth_row_idx
     when 7
-      seventh_row_idx.any? { |value| cells[value] == " "}
+      seventh_row_idx
     end
-
   end
 
-  def loop_idx(array, symbol)
-    i = 0
-    while i < array.length do
-
-      if board[array[i]] == " "
-        update_board(number, symbol)
-      end
-
-      i += 1
-    end
+  def valid_move?(number)
+    row(number).any? { |value| cells[value] == " "}
   end
 
   def game_over?
@@ -80,6 +71,19 @@ class Board
   end
 
   def update_board(number, symbol)
+    row_idxs = row(number)
 
+    i = 0
+    while i < row_idxs.length
+
+      row_idx = row_idxs[i]
+
+      if @cells[row_idx] == " "
+        @cells[row_idx] = symbol
+        break
+      end
+
+      i += 1
+    end
   end
 end
