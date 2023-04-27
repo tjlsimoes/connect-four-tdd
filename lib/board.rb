@@ -4,8 +4,12 @@
 class Board
   attr_reader :cells
 
-  def initialize
-    @cells = Array.new(43, " ")
+  def initialize(nodes = false)
+    if nodes == false
+      @cells = Array.new(43, " ")
+    else
+      @cells = Array.new(43)
+    end
   end
 
   def show

@@ -265,7 +265,7 @@
 # [3,6], 3rd column, 6th row
 # (7 * 6) - (7 - 3) = 38
 
-# Another example: 
+# Another example:
 # [2, 5], 2nd column, 5th row
 # (7 * 5) - (7 - 2) = 30
 
@@ -480,3 +480,118 @@
 # 6th_row_idx = [6, 13, 20, 27, 34, 41]
 # 7th_row_idx = [7, 14, 21, 28, 35, 42]
 
+
+############### 27 April #####################
+
+############# Renovate: High-level game description
+# - Game between two players with diferent markers.
+# - Manifestation of command line board.
+# - Players ought to have the possibility of
+# choosing between the different columns where
+# they would like to drop down their respetive
+# markers.
+#    - This seems to imply that user input should
+#      be limited to 1-7 with different results
+#      depending on the state of each column
+#      (if it already has markers or not)
+# - There would have to be a permanent evaluation
+#   to see if, as a result of any play, a line of
+#   four identical markers would be constituted:
+#   diagonally, horizontally or vertically.
+#     - This perhaps with the exception of the
+#       plays where there would not be any four
+#       identical markers on the board.
+
+# Main point missing:
+# "Permanent evaluation" of game_over?
+
+# How could that be done?
+
+# - Think of each symbol inserted into the board
+#   as a node. Do a BFS with a counter to be
+#   incremented for each continuous child node
+#   that has the same marker/symbol?
+
+# As of right now I have a Board class with a
+# @cells instance variable.
+# The @cells instance variable is initiated
+# with 43 values of " ".
+
+# Perhaps there are two ways to think about this
+# problem.
+
+# On a first perspetive, the input by the user
+# could be used to create a node as immediately
+# as possible. In a continuum to putting the marker
+# on the designated position on the board.
+
+# On a second perspetive, a scan through the board
+# could be made to identify any markers/symbols and
+# define its corresponding children nodes, that is
+# that node as a tree.
+
+# Previously identified variations to attain children
+# of a node:
+# vars = [-8, 8, -6, 6, -7, 7, -1, 1]
+
+# Create a parallel array to @cells instance variable?
+# Where nodes would be inputted (/replace nil values)?
+# Such that the verification of game_over? would occur
+# in reference to this parallel array of @cells?
+
+# As regards to the previous two different perspetives.
+# It might be the case that the two are required.
+# For the following reasons.
+# When a marker is inserted into the board,
+# not only a node ought to be created in correspondence
+# to its location, but also
+# the other nodes already on the board will possible have
+# to be updated.
+# That is: their children will possibly have to be updated.
+
+# Though this all seems rather inneficient, it seems necssary.
+
+cells_parallel = Array.new(43)
+
+class Node
+  attr_reader :id, :child1, :child2,
+                    :child3, :child4, :child5, 
+                    :child6, :child7, :child8
+  def initialize(number)
+    @id = number
+    @child1 = nil
+    @child2 = nil
+    @child3 = nil
+    @child4 = nil
+    @child5 = nil
+    @child6 = nil
+    @child7 = nil
+    @child8 = nil
+  end
+
+  def children
+    [@node.child1, @node.child2, @node.child3, @node.child4,
+        @node.child5, @node.child6, @node.child7, @node.child8]
+  end
+end
+
+class NodeTree
+  def initialize(id, board_nodes = Board.new(true))
+    @root = build_tree(id)
+    @board_nodes = board_nodes
+  end
+
+  def build_tree(id)
+    return nil if !(1..42).include?(id)
+
+    vars = [-8, 8, -6, 6, -7, 7, -1, 1]
+
+    root_node = Node.new(id)
+
+    i = 0
+    while i < vars.length
+      root_node.children[i] = board_nodes[id + vars[i]] if !board_nodes[id + vars[i]].nil?
+      i += 1
+    end
+  end
+end
