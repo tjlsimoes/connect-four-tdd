@@ -3,14 +3,13 @@
 
 class NodeTree
   attr_reader :root
-  
   def initialize(id, board_nodes = Board.new(true))
     @board_nodes = board_nodes.cells
     @root = build_tree(id, @board_nodes)
   end
 
   def build_tree(id, board_nodes)
-    return nil if !(1..42).include?(id)
+    return nil unless (1..42).include?(id)
 
     vars = [-8, 8, -6, 6, -7, 7, -1, 1]
 
@@ -18,23 +17,26 @@ class NodeTree
 
     i = 0
     while i < vars.length
-      case i
-      when 1
-        root_node.child1 = board_nodes[id + vars[i]]
-      when 2
-        root_node.child2 = board_nodes[id + vars[i]]
-      when 3
-        root_node.child3 = board_nodes[id + vars[i]]
-      when 4
-        root_node.child4 = board_nodes[id + vars[i]]
-      when 5
-        root_node.child5 = board_nodes[id + vars[i]]
-      when 6
-        root_node.child6 = board_nodes[id + vars[i]]
-      when 7
-        root_node.child7 = board_nodes[id + vars[i]]
-      when 8
-        root_node.child8 = board_nodes[id + vars[i]]
+
+      if !board_nodes[id + vars[i]].nil?
+        case i
+        when 1
+          root_node.child1 = board_nodes[id + vars[i]]
+        when 2
+          root_node.child2 = board_nodes[id + vars[i]]
+        when 3
+          root_node.child3 = board_nodes[id + vars[i]]
+        when 4
+          root_node.child4 = board_nodes[id + vars[i]]
+        when 5
+          root_node.child5 = board_nodes[id + vars[i]]
+        when 6
+          root_node.child6 = board_nodes[id + vars[i]]
+        when 7
+          root_node.child7 = board_nodes[id + vars[i]]
+        when 8
+          root_node.child8 = board_nodes[id + vars[i]]
+        end
       end
       i += 1
     end
