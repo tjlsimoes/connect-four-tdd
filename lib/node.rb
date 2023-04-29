@@ -1,13 +1,14 @@
 # Node that every symbol input is meant to be.
 
 class Node
-  attr_reader :id
+  attr_reader :id, :symbol
   attr_accessor :child1, :child2,:child3, 
                 :child4, :child5,:child6, 
                 :child7, :child8
                 
-  def initialize(number)
+  def initialize(number, symbol)
     @id = number
+    @symbol = symbol
     @child1 = nil
     @child2 = nil
     @child3 = nil
