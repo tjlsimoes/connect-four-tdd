@@ -1,7 +1,7 @@
 require_relative "../lib/node"
 
 describe Node do
-  subject(:node) { described_class.new(36)}
+  subject(:node) { described_class.new(36, "\u26dD")}
 
   describe "#children" do
     context "when it has no children" do
