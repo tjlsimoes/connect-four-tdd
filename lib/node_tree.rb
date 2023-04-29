@@ -3,17 +3,17 @@
 
 class NodeTree
   attr_reader :root
-  def initialize(id, board_nodes = Board.new(true))
+  def initialize(id, symbol, board_nodes = Board.new)
     @board_nodes = board_nodes.cells
-    @root = build_tree(id, @board_nodes)
+    @root = build_tree(id, symbol, @board_nodes)
   end
 
-  def build_tree(id, board_nodes)
+  def build_tree(id, symbol, board_nodes)
     return nil unless (1..42).include?(id)
 
     vars = [-8, 8, -6, 6, -7, 7, -1, 1]
 
-    root_node = Node.new(id)
+    root_node = Node.new(id, symbol)
 
     i = 0
     while i < vars.length
