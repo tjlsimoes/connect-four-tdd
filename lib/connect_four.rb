@@ -549,49 +549,242 @@
 # to be updated.
 # That is: their children will possibly have to be updated.
 
-# Though this all seems rather inneficient, it seems necssary.
+# Though this all seems rather inneficient, it seems necssary
 
-cells_parallel = Array.new(43)
+# Could board show be refactored so as to board class always
+# output an array of initial 43 nil values?
+# It seems so, as long as in the show method nil values
+# were mapped for ' ' values.
 
-class Node
-  attr_reader :id, :child1, :child2,
-                    :child3, :child4, :child5, 
-                    :child6, :child7, :child8
-  def initialize(number)
-    @id = number
-    @child1 = nil
-    @child2 = nil
-    @child3 = nil
-    @child4 = nil
-    @child5 = nil
-    @child6 = nil
-    @child7 = nil
-    @child8 = nil
-  end
+############### 28 April #####################
 
-  def children
-    [@node.child1, @node.child2, @node.child3, @node.child4,
-        @node.child5, @node.child6, @node.child7, @node.child8]
-  end
-end
+# class Node
+#   attr_accessor :id, :child1, :child2,
+#                     :child3, :child4, :child5, 
+#                     :child6, :child7, :child8
+#   def initialize(number)
+#     @id = number
+#     @child1 = nil
+#     @child2 = nil
+#     @child3 = nil
+#     @child4 = nil
+#     @child5 = nil
+#     @child6 = nil
+#     @child7 = nil
+#     @child8 = nil
+#   end
 
-class NodeTree
-  def initialize(id, board_nodes = Board.new(true))
-    @root = build_tree(id)
-    @board_nodes = board_nodes
-  end
+  # def children
+  #   [self.child1, self.child2, self.child3, self.child4,
+  #       self.child5, self.child6, self.child7, self.child8]
+  # end
 
-  def build_tree(id)
-    return nil if !(1..42).include?(id)
+#   def children
+#     [@child1, @child2, @child3, @child4,
+#         @child5, @child6, @child7, @child8]
+#   end
+# end
 
-    vars = [-8, 8, -6, 6, -7, 7, -1, 1]
+# class NodeTree
+#   attr_reader :root
 
-    root_node = Node.new(id)
+#   def initialize(id, board_nodes = Board.new(true))
+#     @board_nodes = board_nodes.cells
+#     @root = build_tree(id, @board_nodes)
+#   end
 
-    i = 0
-    while i < vars.length
-      root_node.children[i] = board_nodes[id + vars[i]] if !board_nodes[id + vars[i]].nil?
-      i += 1
-    end
-  end
-end
+#   def build_tree(id, board_nodes)
+#     return nil if !(1..42).include?(id)
+
+#     vars = [-8, 8, -6, 6, -7, 7, -1, 1]
+
+#     root_node = Node.new(id)
+
+#     i = 0
+#     while i < vars.length
+#       case i
+#       when 1
+#         root_node.child1 = board_nodes[id + vars[i]]
+#       when 2
+#         root_node.child2 = board_nodes[id + vars[i]]
+#       when 3
+#         root_node.child3 = board_nodes[id + vars[i]]
+#       when 4
+#         root_node.child4 = board_nodes[id + vars[i]]
+#       when 5
+#         root_node.child5 = board_nodes[id + vars[i]]
+#       when 6
+#         root_node.child6 = board_nodes[id + vars[i]]
+#       when 7
+#         root_node.child7 = board_nodes[id + vars[i]]
+#       when 8
+#         root_node.child8 = board_nodes[id + vars[i]]
+#       end
+#       i += 1
+#     end
+
+#     root_node
+#   end
+# end
+
+# require_relative "board"
+
+# board = Board.new(true)
+# board.update_board(2, Node.new(37))
+# # p board
+# new_tree = NodeTree.new(36, board)
+# p new_tree
+
+############### 29 April #####################
+
+# Efforts still focused on the "permanent
+# evaluation of game_over?".
+
+# As of yesterday a Node and a NodeTree classes
+# seem to have been successfully implemented.
+
+# The question now seems to be:
+# How to integrate this side of things to
+# the game, to the board ?
+
+# How does the game progress and how could one
+# reflect those changes in code?
+
+# Alternate players will input symbols onto
+# different places of the board.
+
+# Visual presentation of such dynamic.
+# And such dynamic as such is already
+# implemented irregardless of nodes and
+# node_trees.
+
+# How are nodes and node_trees to be linked
+# to such a dynamic?
+
+# One could think of each symbol input as a node.
+# However, since it seems necessary that each node
+# has the information of its children nodes, each
+# node would have to be a node_tree.
+
+# As of right now NodeTree takes in the id[cell idx]
+# of the respective node and the entire board.
+# The last being thought as a parallel board, as a
+# mirror board of the board initially made up of
+# ' ' elements.
+
+# Perhaps this could be simplified for there to be only
+# one single board instance variable for each game.
+# However, let's let this point rest for awhile.
+
+# So each user input will have to not only update
+# the corresponding cell to the player's symbol
+# but also associate a NodeTree to that specific cell.
+
+# Why is that?
+# Because it seems that that is the only way to
+# "permanently evaluate" game_over?. In a manner yet to
+# be found: through a BFS of the graph that each NodeTree
+# seems to have to represent.
+
+# Is there a difference in thinking each NodeTree as merely
+# a NodeTree and not a graph?
+# It seems that every node (that every node tree) on a graph
+# is itself a graph, is itself a point starting on which
+# at least part of a graph will have to become manifest.
+
+# However the "permanent evaluation" of game_over? seems to
+# require not only that each user input translates into a
+# node, but that the possibily of previous user inputs
+# relating to the most recent user input is checked.
+# New user inputs might mean children to previously
+# defined nodes/node_trees!
+
+# Hence each user input will have to not only translate
+# an update on the display of the respective cell on the board
+# and an update of respective cell on the board as such, but 
+# also, and fundamentally so (it seems), an update of each
+# non-nil cell of the board.
+
+# Well perhaps not of every non-nil cell of the board.
+# Is it possible, in this board case, for a node X to be 
+# a child of node Y and node Y not to be a child of node X?
+# It seems not. But let's take an/a few examples.
+
+# Consider there is a node of id 36.
+# A node is inserted with id 37.
+# node.id(36) will be a child of node.id(37).
+# Specifically, in light of the actual state of the code,
+# node.id(36) will be (node.id(37)).child7, if that is correct.
+# Where (node.id(37)).child7 is attained through the calculation
+# of id + (-1).
+
+# But node.id(37) ill also be a child of node.id(36) through
+# the symmetrical calculation.
+# That is:
+# node.id(37) == (node.id(36)).child8, if that is correct,
+# through the calculation of id + 1
+
+# It seems plausible to think that if one node X is a child of
+# some other node Y, node Y will also have to be a child of
+# node X.
+
+# That said: the "permanent evaluation" of game_over? seems,
+# then, not to imply an update of every non-nil value on the
+# board, but only of the most recent user input children nodes!
+
+# To sum up:
+# Every user input requires:
+# - An update on the respective cell display.
+# - An update on the respective cell as such.
+# - An update on the respective cell's children cells.
+
+# The last update could perhaps be directly implemented
+# to the NodeTree build_tree method.
+# If corresponding cell id is not nil, update not only
+# respective root_node child to that value, but update
+# that root_node child's children accordingly - that is,
+# symmetrically, as shown above.
+
+# As of right now:
+# ✓ An update on the respective cell display.
+# ✓ An update on the respective cell's children cells.
+
+# Missing:
+# - An update on the respective cell as such.
+# And seemingly required integration into the current 
+# game methods of the Node and NodeTree classes.
+
+# As of right now Node and NodeTree classes play
+# absolutely no role in the game class.
+
+# The idea was for them to have a role. And a central
+# one at that: that of enabling the "permanent evaluation"
+# of the game_over? method.
+
+# At least three different paths present themselves:
+# 1. Refactor Board class for there to be only one
+#    Board class present on the Game class.
+# 2. Add a new parameter for a Board specifically of
+#    nodes, meant to mirror every Board (the one used
+#    for display purposes) method and action.
+# 3. Test that the current idea for solving the
+#    "permanent evaluation" of game_over?, reliant on
+#    the Node and NodeTree classes actually works
+#    before trying to refactor the whole damn Board and
+#    Game classes.
+
+# Path number 3 seems to be the wisest one...
+# Let us tackle point 3 then.
+
+# Assuming a board made up of nil values.
+# Assuming there is only **one** symbol to search for
+# on the board.
+
+# A sort of loop will have to be made for
+# each of the elements constituting the board.
+
+# If it is not nil, a depth-first-search will have to
+# be made as regards to the possibly connected cells.
+
+# A verified list will have to be constitued so as to
+# avoid duplication of values.
