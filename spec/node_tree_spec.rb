@@ -14,7 +14,7 @@ describe NodeTree do
       end
     end
 
-    context "when given a non-empty board of nodes" do
+    context "when given a non-empty board of to be children nodes" do
       let(:board) { Board.new(true) }
 
       before do
@@ -31,6 +31,12 @@ describe NodeTree do
       it "expected children are not nil values" do
         output = node_tree.root.child7.root.id
         expect(output).to eq(37)
+      end
+
+      it "two-way relation is defined" do
+        root_node = node_tree.root
+        child_node = node_tree.root.child7.root
+        expect(child_node.child8.id).to eq(root_node.id)
       end
     end
 
