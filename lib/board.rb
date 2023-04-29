@@ -4,28 +4,32 @@
 class Board
   attr_reader :cells
 
-  def initialize(nodes = false)
-    if nodes == false
-      @cells = Array.new(43, " ")
-    else
-      @cells = Array.new(43)
-    end
+  def initialize
+    @cells = Array.new(43)
   end
 
   def show
+    scells = @cells.map do |value|
+      if value == nil
+        ' '
+      else
+        value
+      end
+
+    end
     puts <<-HEREDOC
       -----------------------------
-      | #{cells[1]} | #{cells[2]} | #{cells[3]} | #{cells[4]} | #{cells[5]} | #{cells[6]} | #{cells[7]} |
+      | #{scells[1]} | #{scells[2]} | #{scells[3]} | #{scells[4]} | #{scells[5]} | #{scells[6]} | #{scells[7]} |
       -----------------------------
-      | #{cells[8]} | #{cells[9]} | #{cells[10]} | #{cells[11]} | #{cells[12]} | #{cells[13]} | #{cells[14]} |
+      | #{scells[8]} | #{scells[9]} | #{scells[10]} | #{scells[11]} | #{scells[12]} | #{scells[13]} | #{scells[14]} |
       -----------------------------
-      | #{cells[15]} | #{cells[16]} | #{cells[17]} | #{cells[18]} | #{cells[19]} | #{cells[20]} | #{cells[21]} |
+      | #{scells[15]} | #{scells[16]} | #{scells[17]} | #{scells[18]} | #{scells[19]} | #{scells[20]} | #{scells[21]} |
       -----------------------------
-      | #{cells[22]} | #{cells[23]} | #{cells[24]} | #{cells[25]} | #{cells[26]} | #{cells[27]} | #{cells[28]} |
+      | #{scells[22]} | #{scells[23]} | #{scells[24]} | #{scells[25]} | #{scells[26]} | #{scells[27]} | #{scells[28]} |
       -----------------------------
-      | #{cells[29]} | #{cells[30]} | #{cells[31]} | #{cells[32]} | #{cells[33]} | #{cells[34]} | #{cells[35]} |
+      | #{scells[29]} | #{scells[30]} | #{scells[31]} | #{scells[32]} | #{scells[33]} | #{scells[34]} | #{scells[35]} |
       -----------------------------
-      | #{cells[36]} | #{cells[37]} | #{cells[38]} | #{cells[39]} | #{cells[40]} | #{cells[41]} | #{cells[42]} |
+      | #{scells[36]} | #{scells[37]} | #{scells[38]} | #{scells[39]} | #{scells[40]} | #{scells[41]} | #{scells[42]} |
       -----------------------------
       -----------------------------
       | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
@@ -36,7 +40,7 @@ class Board
   def full?
     board_cells = @cells[1..42]
 
-    board_cells.all? { |value| value != " " }
+    board_cells.all? { |value| value != nil }
   end
 
   def row(number)
@@ -67,7 +71,7 @@ class Board
   end
 
   def valid_move?(number)
-    row(number).any? { |value| cells[value] == " "}
+    row(number).any? { |value| cells[value] == nil}
   end
 
   def game_over?
@@ -82,7 +86,7 @@ class Board
 
       row_idx = row_idxs[i]
 
-      if @cells[row_idx] == " " || @cells[row_idx] == nil
+      if @cells[row_idx] == nil
         @cells[row_idx] = symbol
         break
       end

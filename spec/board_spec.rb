@@ -12,9 +12,9 @@ describe Board do
 			expect(cells.length).to eq(43)
 		end
 
-		it "cells instance variable is made up of \'  \'" do
+		it "cells instance variable is made up of nil values" do
 			cells = board.cells
-			check = cells.all? { |value| value == " " }
+			check = cells.all? { |value| value == nil }
 			expect(check).to eq true
 		end
 
@@ -22,21 +22,6 @@ describe Board do
 			cells = board.cells
 			check = cells.all? { |value| value == 9 }
 			expect(check).to eq false
-		end
-
-		context "when nodes parameter is true" do
-			subject(:board) { described_class.new(true) }
-	
-			it "cells instance variable has 43 elements" do
-				cells = board.cells
-				expect( cells.length ).to eq(43)
-			end
-	
-			it "cells instance variable is made up of nil values" do
-				cells = board.cells
-				check = cells.all? { |value| value == nil }
-				expect(check).to eq true
-			end
 		end
 	end
 
@@ -50,7 +35,7 @@ describe Board do
 
 		context "when board is already modified but not full" do
 			it "returns is not full" do
-				new_cells = Array.new(43, " ")
+				new_cells = Array.new(43)
         new_cells[3..5] = "\u26d4"
         new_cells[6..8] = "\u26dD"
 
@@ -60,8 +45,8 @@ describe Board do
 		end
 
 		context "when board is full" do
-			it "returns is not full" do
-				new_cells = Array.new(43, " ")
+			it "returns is full" do
+				new_cells = Array.new(43)
 				new_cells[1..43] = "\u26d4"
 
 				board.instance_variable_set(:@cells, new_cells )
@@ -84,7 +69,7 @@ describe Board do
 			context "with non-empty row" do
 
 				before do
-					new_cells = Array.new(43, " ")
+					new_cells = Array.new(43)
 					[1,8,15,22,29].each do |value|
 						new_cells[value] = "\u26d4"
 					end
@@ -100,7 +85,7 @@ describe Board do
 			context "with full row" do
 
 				before do
-					new_cells = Array.new(43, " ")
+					new_cells = Array.new(43)
 					[1,8,15,22,29,36].each do |value|
 						new_cells[value] = "\u26d4"
 					end
@@ -128,7 +113,7 @@ describe Board do
 		context "on row already filled with some symbols" do
 
 			before do
-				new_cells = Array.new(43, " ")
+				new_cells = Array.new(43)
         new_cells[29] = "\u26d4"
         new_cells[36] = "\u26dD"
 				board.instance_variable_set(:@cells, new_cells )
@@ -143,7 +128,7 @@ describe Board do
 
 		context "on filled up row" do
 			before do
-				new_cells = Array.new(43, " ")
+				new_cells = Array.new(43)
 				[36, 29, 22, 15, 8, 1]. each do |idx|
 					new_cells[idx] = "\u26d4"
 				end
