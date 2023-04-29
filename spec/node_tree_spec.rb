@@ -6,7 +6,7 @@ describe NodeTree do
   context "#build_tree" do
 
     context "when given an empty board of nodes" do
-      subject(:node_tree) { described_class.new(36) }
+      subject(:node_tree) { described_class.new(36, "\u2666") }
 
       it "returns a node with children of value nil" do
         output = node_tree.root.children
@@ -15,13 +15,13 @@ describe NodeTree do
     end
 
     context "when given a non-empty board of to be children nodes" do
-      let(:board) { Board.new(true) }
+      let(:board) { Board.new }
 
       before do
-        board.update_board(2, NodeTree.new(37))
+        board.update_board(2, NodeTree.new(37, "\u26dD"))
       end
 
-      subject(:node_tree) { described_class.new(36, board) }
+      subject(:node_tree) { described_class.new(36, "\u2666", board) }
 
       it "does not return a node with all children of value nil" do
         output = node_tree.root.children
