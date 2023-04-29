@@ -12,6 +12,7 @@ describe Game do
 	describe "#play" do
 		it "shows the board" do
 			allow(game).to receive(:puts)
+			allow(game).to receive(:player_turns)
 			expect(game.board).to receive(:show)
 			game.play
 		end
