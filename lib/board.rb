@@ -13,7 +13,7 @@ class Board
       if value == nil
         ' '
       else
-        value
+        value.root.symbol
       end
 
     end
@@ -87,7 +87,7 @@ class Board
       row_idx = row_idxs[i]
 
       if @cells[row_idx] == nil
-        @cells[row_idx] = symbol
+        @cells[row_idx] = NodeTree.new(row_idx, symbol, self)
         break
       end
 
