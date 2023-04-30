@@ -18,4 +18,12 @@ describe Node do
       end
     end
   end 
+
+  describe "node.instance_variables" do
+    it "returns all instance variables: id, symbol and children" do
+      output = node.instance_variables
+      expected = [:@id, :@symbol, :@child1, :@child2, :@child3, :@child4, :@child5, :@child6, :@child7, :@child8]
+      expect(output).to eq(expected)
+    end
+  end
 end
