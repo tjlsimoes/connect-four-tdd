@@ -74,8 +74,31 @@ class Board
     row(number).any? { |value| cells[value] == nil}
   end
 
-  def game_over?
-    
+  def game_over? # Currently largest component on board method
+    largest = 0
+    for i in cells do
+      if i != nil 
+        size = explore_size(i.root)
+        largest = size if size > largest
+      end
+    end
+    largest
+  end
+
+  def explore_size(node, visited = [])
+
+    return 0 if visited.include?(node.id)
+
+    visited << node.id
+    count = 1
+
+    for i in node.children do
+      if i != nil 
+        count += explore_size(i.root, visited)
+      end
+    end
+
+    count
   end
 
   def update_board(number, symbol)
