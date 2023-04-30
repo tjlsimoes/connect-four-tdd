@@ -29,14 +29,14 @@ describe NodeTree do
       end
 
       it "expected children are not nil values" do
-        output = node_tree.root.child7.root.id
+        output = node_tree.root.child8.root.id
         expect(output).to eq(37)
       end
 
       it "two-way relation is defined betwen Nodes" do
         root_node = node_tree.root
-        child_node = node_tree.root.child7.root
-        expect(child_node.child8.id).to eq(root_node.id)
+        child_node = node_tree.root.child8.root
+        expect(child_node.child7.id).to eq(root_node.id)
       end
     end
 
