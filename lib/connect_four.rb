@@ -788,3 +788,33 @@
 
 # A verified list will have to be constitued so as to
 # avoid duplication of values.
+
+# Defined point 3 to work on, ended up working on 
+# point 1...
+# As result and as of right now, seemingly:
+# ✓ An update on the respective cell display.
+# ✓ An update on the respective cell as such.
+# ✓ An update on the respective cell's children cells.
+
+# But still missing:
+# - "Permanent evaluation" of game_over?
+
+############### 30 April #####################
+
+# Point to be worked on:
+# - "Permanent evaluation" of game_over? method.
+
+# Brainstorm:
+# Grid of numbered cells.
+# 3 possibilities for each cell:
+# nil, symbol 1 or symbol 2.
+
+# game_over? method seems to have to rely on
+# a scan of board.cells and two counters.
+# One counter for the largest component of
+# symbol 1.
+# One counter for the largest component of 
+# symbol 2.
+
+# Note:
+# Additional tests added to #update_board method.
