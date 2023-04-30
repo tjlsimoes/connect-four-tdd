@@ -22,28 +22,28 @@ class NodeTree
         case i
         when 1
           root_node.child1 = board_nodes[id + vars[i]]
-          board_nodes[id + vars[i]].root.child2 = root_node
+          board_nodes[id + vars[i]].root.child2 = self
         when 2
           root_node.child2 = board_nodes[id + vars[i]]
-          board_nodes[id + vars[i]].root.child1 = root_node
+          board_nodes[id + vars[i]].root.child1 = self
         when 3
           root_node.child3 = board_nodes[id + vars[i]]
-          board_nodes[id + vars[i]].root.child4 = root_node
+          board_nodes[id + vars[i]].root.child4 = self
         when 4
           root_node.child4 = board_nodes[id + vars[i]]
-          board_nodes[id + vars[i]].root.child3 = root_node
+          board_nodes[id + vars[i]].root.child3 = self
         when 5
           root_node.child5 = board_nodes[id + vars[i]]
-          board_nodes[id + vars[i]].root.child6 = root_node
+          board_nodes[id + vars[i]].root.child6 = self
         when 6
           root_node.child6 = board_nodes[id + vars[i]]
-          board_nodes[id + vars[i]].root.child5 = root_node
+          board_nodes[id + vars[i]].root.child5 = self
         when 7
           root_node.child7 = board_nodes[id + vars[i]]
-          board_nodes[id + vars[i]].root.child8 = root_node
+          board_nodes[id + vars[i]].root.child8 = self
         when 8
           root_node.child8 = board_nodes[id + vars[i]]
-          board_nodes[id + vars[i]].root.child7 = root_node
+          board_nodes[id + vars[i]].root.child7 = self
         end
       end
       i += 1

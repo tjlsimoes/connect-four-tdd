@@ -18,7 +18,7 @@ describe NodeTree do
       let(:board) { Board.new }
 
       before do
-        board.update_board(2, NodeTree.new(37, "\u26dD"))
+        board.update_board(2, "\u26dD")
       end
 
       subject(:node_tree) { described_class.new(36, "\u2666", board) }
@@ -33,12 +33,11 @@ describe NodeTree do
         expect(output).to eq(37)
       end
 
-      it "two-way relation is defined betwen Nodes" do
+      it "two-way relation is defined betwen NodeTrees" do
         root_node = node_tree.root
         child_node = node_tree.root.child8.root
-        expect(child_node.child7.id).to eq(root_node.id)
+        expect(child_node.child7.root.id).to eq(root_node.id)
       end
     end
-
   end
 end
