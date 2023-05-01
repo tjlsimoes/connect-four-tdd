@@ -75,7 +75,7 @@ class Board
   end
 
   def game_over?
-    
+    largest_component("\u2666") >= 4 || largest_component("\u26dD") >= 4
   end
 
   def largest_component(symbol)

@@ -178,48 +178,101 @@ describe Board do
       end
     end
 
+    context "4 diagonal win starting on leftmost column and row for symbol 1" do
+
+      before do
+        board.update_board(1, "\u2666")
+        board.update_board(2, "\u26dD")
+        board.update_board(2, "\u2666")
+        2.times {board.update_board(3, "\u26dD")}
+        board.update_board(3, "\u2666")
+        3.times {board.update_board(4, "\u26dD")}
+        board.update_board(4, "\u2666")
+      end
+
+      it "returns 4" do
+        expect(board.largest_component("\u2666")).to eq(4)
+      end
+    end
+
   end
 
   describe "#game_over?" do
 
     context "when board is initialized" do
-      xit "returns false" do
-        expect(board.game_over?).to_not be_game_over
+      it "returns false" do
+        expect(board).to_not be_game_over
       end
     end
 
     context "4 bottom left horizontal win for symbol 1" do
-      xit "returns true" do
+      it "returns true" do
         for i in [1,2,3,4] do
-          board.update_board(i, "\u26d6")
-          expect(board.game_over?).to be_game_over
+          board.update_board(i, "\u2666")
         end
+        expect(board).to be_game_over
       end
     end
 
     context "4 vertical win on leftmost column for symbol 1" do
-      xit "returns true" do
-        4.times {board.update_board(1, "\u26d6")}
-        expect(board.game_over?).to be_game_over
+      it "returns true" do
+        4.times {board.update_board(1, "\u2666")}
+        expect(board).to be_game_over
       end
     end
 
     context "4 diagonal win starting on leftmost column and row for symbol 1" do
 
       before do
-        board.update_board(1, "\u26d6")
+        board.update_board(1, "\u2666")
         board.update_board(2, "\u26dD")
-        board.update_board(2, "\u26d6")
+        board.update_board(2, "\u2666")
         2.times {board.update_board(3, "\u26dD")}
-        board.update_board(3, "\u26d6")
-        3.times {board.update_board(3, "\u26dD")}
-        board.update_board(3, "\u26dD")
+        board.update_board(3, "\u2666")
+        3.times {board.update_board(4, "\u26dD")}
+        board.update_board(4, "\u2666")
       end
 
-      xit "returns true" do
-        expect(board.game_over?).to be_game_over
+      it "returns true" do
+        expect(board).to be_game_over
       end
     end
+
+    # Symbol 2 win situations
+
+    context "4 bottom left horizontal win for symbol 2" do
+      it "returns true" do
+        for i in [1,2,3,4] do
+          board.update_board(i, "\u26dD")
+        end
+        expect(board).to be_game_over
+      end
+    end
+
+    context "4 vertical win on leftmost column for symbol 2" do
+      it "returns true" do
+        4.times {board.update_board(1, "\u26dD")}
+        expect(board).to be_game_over
+      end
+    end
+
+    context "4 diagonal win starting on leftmost column and row for symbol 2" do
+
+      before do
+        board.update_board(1, "\u26dD")
+        board.update_board(2, "\u2666")
+        board.update_board(2, "\u26dD")
+        2.times {board.update_board(3, "\u2666")}
+        board.update_board(3, "\u26dD")
+        3.times {board.update_board(4, "\u2666")}
+        board.update_board(4, "\u26dD")
+      end
+
+      it "returns true" do
+        expect(board).to be_game_over
+      end
+    end
+
   end
 
 end
