@@ -154,7 +154,7 @@ describe Board do
       
     context "when board is initialized" do
       it "returns 0" do
-        expect(board.largest_component).to eq(0)
+        expect(board.largest_component("\u2666")).to eq(0)
       end
     end
 
@@ -162,19 +162,19 @@ describe Board do
 
       before do
         for i in [1,2,3,4] do
-          board.update_board(i, "\u26d6")
+          board.update_board(i, "\u2666")
         end
       end
 
       it "returns 4" do
-        expect(board.largest_component).to eq(4)
+        expect(board.largest_component("\u2666")).to eq(4)
       end
     end
 
     context "4 vertical win on leftmost column for symbol 1" do
       it "returns 4" do
-        4.times {board.update_board(1, "\u26d6")}
-        expect(board.largest_component).to eq(4)
+        4.times {board.update_board(1, "\u2666")}
+        expect(board.largest_component("\u2666")).to eq(4)
       end
     end
 

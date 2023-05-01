@@ -78,18 +78,18 @@ class Board
     
   end
 
-  def largest_component
+  def largest_component(symbol)
     largest = 0
     for i in cells do
-      if i != nil 
-        size = explore_size(i.root)
+      if i != nil && i.root.symbol == symbol
+        size = explore_size(i.root, symbol)
         largest = size if size > largest
       end
     end
     largest
   end
 
-  def explore_size(node, visited = [])
+  def explore_size(node, symbol, visited = [])
 
     return 0 if visited.include?(node.id)
 
@@ -97,8 +97,8 @@ class Board
     count = 1
 
     for i in node.children do
-      if i != nil 
-        count += explore_size(i.root, visited)
+      if i != nil && i.root.symbol == symbol
+        count += explore_size(i.root, symbol, visited)
       end
     end
 
