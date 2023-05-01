@@ -74,7 +74,11 @@ class Board
     row(number).any? { |value| cells[value] == nil}
   end
 
-  def game_over? # Currently largest component on board method
+  def game_over?
+    
+  end
+
+  def largest_component
     largest = 0
     for i in cells do
       if i != nil 

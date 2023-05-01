@@ -150,6 +150,36 @@ describe Board do
     end
   end
 
+  context "#largest_component" do
+      
+    context "when board is initialized" do
+      it "returns 0" do
+        expect(board.largest_component).to eq(0)
+      end
+    end
+
+    context "4 bottom left horizontal win for symbol 1" do
+
+      before do
+        for i in [1,2,3,4] do
+          board.update_board(i, "\u26d6")
+        end
+      end
+
+      it "returns 4" do
+        expect(board.largest_component).to eq(4)
+      end
+    end
+
+    context "4 vertical win on leftmost column for symbol 1" do
+      it "returns 4" do
+        4.times {board.update_board(1, "\u26d6")}
+        expect(board.largest_component).to eq(4)
+      end
+    end
+
+  end
+
   describe "#game_over?" do
 
     context "when board is initialized" do
@@ -190,37 +220,6 @@ describe Board do
         expect(board.game_over?).to be_game_over
       end
     end
-
-    context "temporary game_over? method" do # Currently largest component on board method
-      
-      context "when board is initialized" do
-        it "returns 0" do
-          expect(board.game_over?).to eq(0)
-        end
-      end
-
-      context "4 bottom left horizontal win for symbol 1" do
-
-        before do
-          for i in [1,2,3,4] do
-            board.update_board(i, "\u26d6")
-          end
-        end
-
-        it "returns 4" do
-          expect(board.game_over?).to eq(4)
-        end
-      end
-
-      context "4 vertical win on leftmost column for symbol 1" do
-        it "returns 4" do
-          4.times {board.update_board(1, "\u26d6")}
-          expect(board.game_over?).to eq(4)
-        end
-      end
-
-    end
-
   end
 
 end
