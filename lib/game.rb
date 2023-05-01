@@ -18,6 +18,7 @@ class Game
     puts intro_msg
     board.show
     player_turns
+    conclusion
   end
 
   def turn(player)
@@ -52,6 +53,14 @@ class Game
       second_player
     else
       first_player
+    end
+  end
+
+  def conclusion
+    if board.game_over?
+      puts display_winner(current_player.name)
+    else
+      puts display_tie
     end
   end
 end
