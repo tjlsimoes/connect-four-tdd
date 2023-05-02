@@ -21,17 +21,25 @@ class NodeTree
       if !board_nodes[id + vars[i]].nil?
         case i
         when 1
-          root_node.child1 = board_nodes[id + vars[i]]
-          board_nodes[id + vars[i]].root.child2 = self
+          if !first_column?(root_node.id)
+            root_node.child1 = board_nodes[id + vars[i]]
+            board_nodes[id + vars[i]].root.child2 = self
+          end
         when 2
-          root_node.child2 = board_nodes[id + vars[i]]
-          board_nodes[id + vars[i]].root.child1 = self
+          if !last_column?(root_node.id)
+            root_node.child2 = board_nodes[id + vars[i]]
+            board_nodes[id + vars[i]].root.child1 = self
+          end
         when 3
-          root_node.child3 = board_nodes[id + vars[i]]
-          board_nodes[id + vars[i]].root.child4 = self
+          if !last_column?(root_node.id)
+            root_node.child3 = board_nodes[id + vars[i]]
+            board_nodes[id + vars[i]].root.child4 = self
+          end
         when 4
-          root_node.child4 = board_nodes[id + vars[i]]
-          board_nodes[id + vars[i]].root.child3 = self
+          if !first_column?(root_node.id)
+            root_node.child4 = board_nodes[id + vars[i]]
+            board_nodes[id + vars[i]].root.child3 = self
+          end
         when 5
           root_node.child5 = board_nodes[id + vars[i]]
           board_nodes[id + vars[i]].root.child6 = self
@@ -39,16 +47,28 @@ class NodeTree
           root_node.child6 = board_nodes[id + vars[i]]
           board_nodes[id + vars[i]].root.child5 = self
         when 7
-          root_node.child7 = board_nodes[id + vars[i]]
-          board_nodes[id + vars[i]].root.child8 = self
+          if !first_column?(root_node.id)
+            root_node.child7 = board_nodes[id + vars[i]]
+            board_nodes[id + vars[i]].root.child8 = self
+          end
         when 8
-          root_node.child8 = board_nodes[id + vars[i]]
-          board_nodes[id + vars[i]].root.child7 = self
+          if !last_column?(root_node.id)
+            root_node.child8 = board_nodes[id + vars[i]]
+            board_nodes[id + vars[i]].root.child7 = self
+          end
         end
       end
       i += 1
     end
 
     root_node
+  end
+
+  def first_column?(root_id)
+    root_id % 7 == 1
+  end
+
+  def last_column?(root_id)
+    root_id % 7 == 0
   end
 end

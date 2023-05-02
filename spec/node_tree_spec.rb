@@ -39,5 +39,89 @@ describe NodeTree do
         expect(child_node.child7.root.id).to eq(root_node.id)
       end
     end
+
+    context "children nodes edge cases" do
+      let(:board) { Board.new }
+  
+      context "-8 invalid child" do
+        before do
+          3.times {board.update_board(7, "\u2666")}
+        end
+    
+        subject(:node_tree) { described_class.new(36, "\u2666", board) }
+    
+        it "does not update expected child" do
+          output = node_tree.root.child1
+          expect(output).to be_nil
+        end
+      end
+
+      context "+8 invalid child" do
+        before do
+          board.update_board(1, "\u2666")
+        end
+    
+        subject(:node_tree) { described_class.new(28, "\u2666", board) }
+    
+        it "does not update expected child" do
+          output = node_tree.root.child2
+          expect(output).to be_nil
+        end
+      end
+
+      context "-6 invalid child" do
+        before do
+          board.update_board(1, "\u2666")
+        end
+    
+        subject(:node_tree) { described_class.new(42, "\u2666", board) }
+    
+        it "does not update expected child" do
+          output = node_tree.root.child3
+          expect(output).to be_nil
+        end
+      end
+
+      context "+6 invalid child" do
+        before do
+          board.update_board(7, "\u2666")
+        end
+    
+        subject(:node_tree) { described_class.new(36, "\u2666", board) }
+    
+        it "does not update expected child" do
+          output = node_tree.root.child4
+          expect(output).to be_nil
+        end
+      end
+
+      context "-1 invalid child" do
+        before do
+          2.times {board.update_board(7, "\u2666")}
+        end
+    
+        subject(:node_tree) { described_class.new(36, "\u2666", board) }
+    
+        it "does not update expected child" do
+          output = node_tree.root.child7
+          expect(output).to be_nil
+        end
+      end
+
+      context "+1 invalid child" do
+        before do
+          board.update_board(1, "\u2666")
+        end
+    
+        subject(:node_tree) { described_class.new(35, "\u2666", board) }
+    
+        it "does not update expected child" do
+          output = node_tree.root.child8
+          expect(output).to be_nil
+        end
+      end
+
+    end
+
   end
 end
