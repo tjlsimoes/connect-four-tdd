@@ -818,3 +818,82 @@
 
 # Note:
 # Additional tests added to #update_board method.
+
+################ 1 May #####################
+
+# Point to be worked on:
+# - "Permanent evaluation" of game_over? method.
+
+# Need to refacter current game_over? method
+# (more like largest_component method) to 
+# return a boolean value and accomodate the 
+# possibility of there being two different
+# symbols on the board.
+
+# As of right now, I have:
+# - largest_component method that outputs the
+# size of the largest component on the grid
+# irregardless of the difference in symbols.
+
+# Current game_over? evaluation is incorrect.
+# It seems:
+# - On the one hand, because of code having been
+#   set based on numbered grid. Which means that
+#   the leftmost cell on a new row will still be 
+#   set as a child of the rightmost cell of the 
+#   previous row.
+# - Any relation is being counted for the largest
+#   component method. Not just horizontal, vertical
+#   or diagonal...
+
+
+################ 2 May #####################
+
+# Problems needing a fix:
+# - Largest component ought to output largest 
+#   component of either horizontal, vertical
+#   or diagonal directions and no any other 
+#   type of spacial agregation.
+# - Children of a new row on the other side 
+#   of the board ought not to be set as 
+#   children.
+
+# vars = [0, -8, 8, -6, 6, -7, 7, -1, 1]
+
+# -8:
+# is incorrect for first column members.
+
+# 8:
+# is incorrect for last column members.
+
+# -6:
+# is incorrect for last column members.
+
+# 6:
+# is incorrect for first column members.
+
+#-7:
+# always correct.
+
+# 7:
+# always correct.
+
+# -1:
+# incorrect for first column members.
+
+# 1: 
+# incorrect for last column members.
+
+# Problems needing a fix:
+# - Largest component ought to output largest 
+#   component of either horizontal, vertical
+#   or diagonal directions and not any other 
+#   type of spacial agregation.
+# ✓ "Wrapping children"
+
+# Problems needing a fix, seemingly:
+# ✓ Largest component ought to output largest 
+#   component of either horizontal, vertical
+#   or diagonal directions and not any other 
+#   type of spacial agregation.
+# ✓ "Wrapping children"
