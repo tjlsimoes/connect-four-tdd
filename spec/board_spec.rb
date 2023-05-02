@@ -197,6 +197,204 @@ describe Board do
 
   end
 
+  describe "#largest_horizontal_component" do
+    context "when board is initialized" do
+      it "returns 0" do
+        expect(board.largest_horizontal_component("\u2666")).to eq(0)
+      end
+    end
+
+    context "4 bottom left horizontal win for symbol 1" do
+
+      before do
+        for i in [1,2,3,4] do
+          board.update_board(i, "\u2666")
+        end
+      end
+
+      it "returns 4" do
+        expect(board.largest_horizontal_component("\u2666")).to eq(4)
+      end
+    end
+
+    context "4 vertical win on leftmost column for symbol 1" do
+      it "returns 1" do
+        4.times {board.update_board(1, "\u2666")}
+        expect(board.largest_horizontal_component("\u2666")).to eq(1)
+      end
+    end
+
+    context "4 diagonal win starting on leftmost column and row for symbol 1" do
+
+      before do
+        board.update_board(1, "\u2666")
+        board.update_board(2, "\u26dD")
+        board.update_board(2, "\u2666")
+        2.times {board.update_board(3, "\u26dD")}
+        board.update_board(3, "\u2666")
+        3.times {board.update_board(4, "\u26dD")}
+        board.update_board(4, "\u2666")
+      end
+
+      it "returns 1" do
+        expect(board.largest_horizontal_component("\u2666")).to eq(1)
+      end
+    end
+  end
+
+  describe "#largest_vertical_component" do
+    context "when board is initialized" do
+      it "returns 0" do
+        expect(board.largest_vertical_component("\u2666")).to eq(0)
+      end
+    end
+
+    context "4 bottom left horizontal win for symbol 1" do
+
+      before do
+        for i in [1,2,3,4] do
+          board.update_board(i, "\u2666")
+        end
+      end
+
+      it "returns 1" do
+        expect(board.largest_vertical_component("\u2666")).to eq(1)
+      end
+    end
+
+    context "4 vertical win on leftmost column for symbol 1" do
+      it "returns 4" do
+        4.times {board.update_board(1, "\u2666")}
+        expect(board.largest_vertical_component("\u2666")).to eq(4)
+      end
+    end
+
+    context "4 diagonal win starting on leftmost column and row for symbol 1" do
+
+      before do
+        board.update_board(1, "\u2666")
+        board.update_board(2, "\u26dD")
+        board.update_board(2, "\u2666")
+        2.times {board.update_board(3, "\u26dD")}
+        board.update_board(3, "\u2666")
+        3.times {board.update_board(4, "\u26dD")}
+        board.update_board(4, "\u2666")
+      end
+
+      it "returns 1" do
+        expect(board.largest_vertical_component("\u2666")).to eq(1)
+      end
+    end
+  end
+
+  describe "#largest_diagonal_du_component" do
+    context "when board is initialized" do
+      it "returns 0" do
+        expect(board.largest_diagonal_du_component("\u2666")).to eq(0)
+      end
+    end
+
+    context "4 bottom left horizontal win for symbol 1" do
+
+      before do
+        for i in [1,2,3,4] do
+          board.update_board(i, "\u2666")
+        end
+      end
+
+      it "returns 1" do
+        expect(board.largest_diagonal_du_component("\u2666")).to eq(1)
+      end
+    end
+
+    context "4 vertical win on leftmost column for symbol 1" do
+      it "returns 1" do
+        4.times {board.update_board(1, "\u2666")}
+        expect(board.largest_diagonal_du_component("\u2666")).to eq(1)
+      end
+    end
+
+    context "4 diagonal win starting on leftmost column and row for symbol 1" do
+
+      before do
+        board.update_board(1, "\u2666")
+        board.update_board(2, "\u26dD")
+        board.update_board(2, "\u2666")
+        2.times {board.update_board(3, "\u26dD")}
+        board.update_board(3, "\u2666")
+        3.times {board.update_board(4, "\u26dD")}
+        board.update_board(4, "\u2666")
+      end
+
+      it "returns 4" do
+        expect(board.largest_diagonal_du_component("\u2666")).to eq(4)
+      end
+    end
+  end
+
+  describe "#largest_diagonal_ud_component" do
+    context "when board is initialized" do
+      it "returns 0" do
+        expect(board.largest_diagonal_ud_component("\u2666")).to eq(0)
+      end
+    end
+
+    context "4 bottom left horizontal win for symbol 1" do
+
+      before do
+        for i in [1,2,3,4] do
+          board.update_board(i, "\u2666")
+        end
+      end
+
+      it "returns 1" do
+        expect(board.largest_diagonal_ud_component("\u2666")).to eq(1)
+      end
+    end
+
+    context "4 vertical win on leftmost column for symbol 1" do
+      it "returns 1" do
+        4.times {board.update_board(1, "\u2666")}
+        expect(board.largest_diagonal_ud_component("\u2666")).to eq(1)
+      end
+    end
+
+    context "4 diagonal win starting on leftmost column and row for symbol 1" do
+
+      before do
+        board.update_board(1, "\u2666")
+        board.update_board(2, "\u26dD")
+        board.update_board(2, "\u2666")
+        2.times {board.update_board(3, "\u26dD")}
+        board.update_board(3, "\u2666")
+        3.times {board.update_board(4, "\u26dD")}
+        board.update_board(4, "\u2666")
+      end
+
+      it "returns 4" do
+        expect(board.largest_diagonal_ud_component("\u2666")).to eq(1)
+      end
+    end
+
+    context "4 diagonal ud win starting on leftmost column for symbol 1" do
+
+      before do
+
+        3.times {board.update_board(1, "\u26dD")}
+        board.update_board(1, "\u2666")
+        2.times {board.update_board(2, "\u26dD")}
+        board.update_board(2, "\u2666")
+        board.update_board(3, "\u26dD")
+        board.update_board(3, "\u2666")
+        board.update_board(4, "\u2666")
+      end
+
+      it "returns 4" do
+        expect(board.largest_diagonal_ud_component("\u2666")).to eq(4)
+      end
+    end
+  end
+
   describe "#game_over?" do
 
     context "when board is initialized" do

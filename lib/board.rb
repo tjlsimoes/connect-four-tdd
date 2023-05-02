@@ -75,7 +75,120 @@ class Board
   end
 
   def game_over?
-    largest_component("\u2666") >= 4 || largest_component("\u26dD") >= 4
+    win?("\u2666") || win?("\u26dD")
+  end
+
+  def win?(symbol)
+    largest_diagonal_du_component(symbol) >= 4 || largest_diagonal_ud_component(symbol) >= 4 ||
+    largest_horizontal_component(symbol) >= 4 || largest_vertical_component(symbol) >= 4
+  end
+
+  def largest_diagonal_ud_component(symbol) # ud == up left, down right
+    largest = 0
+    for i in cells do
+      if i != nil && i.root.symbol == symbol
+        size = explore_diagonal_ud_size(i.root, symbol)
+        largest = size if size > largest
+      end
+    end
+    largest
+  end
+
+  def explore_diagonal_ud_size(node, symbol, visited = [])
+
+    return 0 if visited.include?(node.id)
+
+    visited << node.id
+    count = 1
+
+    for i in node.children[1..2] do
+      if i != nil && i.root.symbol == symbol
+        count += explore_diagonal_ud_size(i.root, symbol, visited)
+      end
+    end
+
+    count
+  end
+
+  def largest_diagonal_du_component(symbol) # du == down left, up right
+    largest = 0
+    for i in cells do
+      if i != nil && i.root.symbol == symbol
+        size = explore_diagonal_du_size(i.root, symbol)
+        largest = size if size > largest
+      end
+    end
+    largest
+  end
+
+  def explore_diagonal_du_size(node, symbol, visited = [])
+
+    return 0 if visited.include?(node.id)
+
+    visited << node.id
+    count = 1
+
+    for i in node.children[3..4] do
+      if i != nil && i.root.symbol == symbol
+        count += explore_diagonal_du_size(i.root, symbol, visited)
+      end
+    end
+
+    count
+  end
+
+  def largest_vertical_component(symbol)
+    largest = 0
+    for i in cells do
+      if i != nil && i.root.symbol == symbol
+        size = explore_vertical_size(i.root, symbol)
+        largest = size if size > largest
+      end
+    end
+    largest
+  end
+
+  def explore_vertical_size(node, symbol, visited = [])
+
+    return 0 if visited.include?(node.id)
+
+    visited << node.id
+    count = 1
+
+    for i in node.children[5..6] do
+      if i != nil && i.root.symbol == symbol
+        count += explore_size(i.root, symbol, visited)
+      end
+    end
+
+    count
+  end
+
+  def largest_horizontal_component(symbol)
+    largest = 0
+    for i in cells do
+      if i != nil && i.root.symbol == symbol
+        size = explore_horizontal_size(i.root, symbol)
+        largest = size if size > largest
+      end
+    end
+    largest
+  end
+
+  def explore_horizontal_size(node, symbol, visited = [])
+
+    return 0 if visited.include?(node.id)
+
+    visited << node.id
+    count = 1
+
+    for i in node.children[7..8] do
+      if i != nil && i.root.symbol == symbol
+        count += explore_size(i.root, symbol, visited)
+      end
+    end
+
+    count
   end
 
   def largest_component(symbol)
