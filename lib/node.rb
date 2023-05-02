@@ -20,7 +20,7 @@ class Node
   end
 
   def children
-    [child1, child2, child3, child4,
+    [nil, child1, child2, child3, child4,
         child5, child6, child7, child8]
   end
 end

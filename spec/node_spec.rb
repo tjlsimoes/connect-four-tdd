@@ -5,13 +5,13 @@ describe Node do
 
   describe "#children" do
     context "when it has no children" do
-      it "returns array of 8 elements" do
+      it "returns array of 9 elements" do
         output = node.children
 
-        expect(output.length).to eq(8)
+        expect(output.length).to eq(9)
       end
 
-      it "returns array of 8 nil elements" do
+      it "returns array of 9 nil elements" do
         output = node.children
 
         expect(output.compact).to eq([])
